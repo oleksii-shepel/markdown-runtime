@@ -1,21 +1,16 @@
-import MarkdownRuntime from './app/markdown-runtime';
-import MarkdownEditor from './app/markdown-editor';
+import init, { parse_markdown } from '../public/assets/markdown_wasm';
 
-export { MarkdownRuntime, MarkdownEditor };
-export default MarkdownEditor;
+async function run() {
+    await init();
+    const input = (document.getElementById('markdown-input') as HTMLTextAreaElement)!.value;
+    const output = parse_markdown(input);
+    document.getElementById('html-output')!.innerHTML = output;
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize the editor
-  const editor = new MarkdownEditor({
-    inputSelector: '#markdown-input',
-    previewSelector: '#preview',
-    debounceTime: 300 // Debounce for better performance
-  });
+    document.getElementById('markdown-input')!.addEventListener("input", () => {
+        const input = (document.getElementById('markdown-input') as HTMLTextAreaElement)!.value;
+        const output = parse_markdown(input);
+        document.getElementById('html-output')!.innerHTML = output;
+    });
+}
 
-  // Example of adding a custom pattern (e.g., highlight text)
-  editor.addCustomPattern(
-    'highlight',
-    /==(.+?)==/g,
-    '<mark>$1</mark>'
-  );
-});
+run();

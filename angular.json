@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "markdown-runtime": {
+    "markdown-realtime-editor": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/markdown-runtime",
+            "outputPath": "dist/markdown-realtime-editor",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -28,8 +28,10 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "public/assets",
+                "output": "/assets/"
+              },
+              "src/assets/**/*"
             ],
             "styles": [
               "src/styles.scss"
@@ -64,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "markdown-runtime:build:production"
+              "buildTarget": "markdown-realtime-editor:build:production"
             },
             "development": {
-              "buildTarget": "markdown-runtime:build:development"
+              "buildTarget": "markdown-realtime-editor:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,8 +89,9 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "public/assets"
+              },
+              "src/assets/**/*"
             ],
             "styles": [
               "src/styles.scss"
